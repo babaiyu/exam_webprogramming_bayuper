@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BarangController;
+use App\Http\Controllers\Api\NomorSeriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +28,16 @@ Route::post('/logout', [AuthController::class, 'logout']);
 // Route::middleware('auth:api')
 Route::middleware('auth:api')->group(function () {
   Route::get('/user', [AuthController::class, 'getUser']);
+
+  // CRUD Barang
   Route::get('/barangs', [BarangController::class, 'getBarang']);
   Route::post('/barang', [BarangController::class, 'insertBarang']);
   Route::patch('/barang/{id}', [BarangController::class, 'updateBarang']);
   Route::delete('/barang/{id}', [BarangController::class, 'deleteBarang']);
+
+  // CRUD Nomor Seri
+  Route::get('/nomor-seris', [NomorSeriController::class, 'getNomorSeri']);
+  Route::post('/nomor-seri', [NomorSeriController::class, 'insertNomorSeri']);
+  Route::patch('/nomor-seri/{id}', [NomorSeriController::class, 'updateNomorSeri']);
+  Route::delete('/nomor-seri/{id}', [NomorSeriController::class, 'deleteNomorSeri']);
 });
