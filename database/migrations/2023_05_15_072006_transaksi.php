@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('no_trans')->unique();
             $table->string('customer_vendor');
             $table->string('tipe_trans');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

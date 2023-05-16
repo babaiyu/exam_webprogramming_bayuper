@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nomor_seri', function(Blueprint $table) {
+        Schema::create('nomor_seri', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
+            $table->foreignId('product_id')
+                ->constrained(table: 'barang')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->decimal('serial_no');
             $table->float('price');
             $table->date('prod_date');
             $table->date('warranty_start');
             $table->integer('warranty_duration');
             $table->string('used');
-            $table->foreign('product_id')->references('id')->on('barang');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
