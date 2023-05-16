@@ -2,6 +2,7 @@ import "./bootstrap";
 import React from "react";
 import { createInertiaApp } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
+import 'flowbite';
 
 createInertiaApp({
     resolve: (name) => {
