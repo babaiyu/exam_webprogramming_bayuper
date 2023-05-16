@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('brand');
             $table->float('price');
             $table->string('model_no');
-            $table->timestamps();
+            $table->decimal('stocks');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

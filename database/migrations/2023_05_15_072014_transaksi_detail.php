@@ -11,16 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksi_detail', function(Blueprint $table) {
+        Schema::create('transaksi_detail', function (Blueprint $table) {
             $table->id();
-            $table->integer('transaksi_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->decimal('serial_no');
+            $table->foreignId('transaksi_id')
+                ->constrained(table: 'transaksi')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('product_id')
+                ->constrained(table: 'barang')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('serial_no');
             $table->float('price');
             $table->integer('discount');
-            $table->foreign('transaksi_id')->references('id')->on('transaksi');
-            $table->foreign('product_id')->references('id')->on('barang');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

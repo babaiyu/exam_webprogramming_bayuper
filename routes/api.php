@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BarangController;
 use App\Http\Controllers\Api\NomorSeriController;
+use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,4 +41,9 @@ Route::middleware('auth:api')->group(function () {
   Route::post('/nomor-seri', [NomorSeriController::class, 'insertNomorSeri']);
   Route::patch('/nomor-seri/{id}', [NomorSeriController::class, 'updateNomorSeri']);
   Route::delete('/nomor-seri/{id}', [NomorSeriController::class, 'deleteNomorSeri']);
+
+  // CRUD Transaksi
+  Route::get('/transaksis', [TransaksiController::class, 'getAllTransaksi']);
+  Route::post('/transaksi', [TransaksiController::class, 'insertTransaksi']);
+  Route::delete('/transaksi/{id}', [TransaksiController::class, 'deleteTransaksi']);
 });
