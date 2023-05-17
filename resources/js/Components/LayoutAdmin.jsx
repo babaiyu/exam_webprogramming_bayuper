@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
 import { Sidebar } from "flowbite-react";
-import {
-    ChartPieIcon,
-    ShoppingBagIcon,
-    InboxIcon,
-} from "@heroicons/react/24/solid";
+import { ChartPieIcon, InboxIcon } from "@heroicons/react/24/solid";
 import Navbar from "./Navbar";
 import { apiGetUser } from "../Api";
+import Head from "./Head";
 
-export default function LayoutAdmin({ children }) {
+export default function LayoutAdmin({ children, title = "" }) {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
 
@@ -20,7 +18,6 @@ export default function LayoutAdmin({ children }) {
                 .then((res) => {
                     const response = res.data;
                     setUser(response);
-                    console.log("Data => ", response);
                 })
                 .catch((err) => {
                     if (err?.response?.status === 401) {
@@ -39,18 +36,24 @@ export default function LayoutAdmin({ children }) {
 
     return (
         <>
+            <Head title={title} />
+
             <Navbar user={user} />
 
-            <div className="w-fit flex flex-row">
-                <Sidebar>
+            <main className="w-full flex flex-row justify-between">
+                <Sidebar className="w-[20%]">
                     <Sidebar.Items>
                         <Sidebar.ItemGroup>
-                            <Sidebar.Item href="/dashboard" icon={ChartPieIcon}>
-                                Dashboard
-                            </Sidebar.Item>
-                            <Sidebar.Item href="/products" icon={InboxIcon}>
-                                Barang
-                            </Sidebar.Item>
+                            <Link href="/dashboard">
+                                <Sidebar.Item href="#" icon={ChartPieIcon}>
+                                    Dashboard
+                                </Sidebar.Item>
+                            </Link>
+                            <Link href="/products">
+                                <Sidebar.Item icon={InboxIcon}>
+                                    Barang
+                                </Sidebar.Item>
+                            </Link>
                             <Sidebar.Item href="/transactions" icon={InboxIcon}>
                                 Transaksi
                             </Sidebar.Item>
@@ -61,8 +64,8 @@ export default function LayoutAdmin({ children }) {
                     </Sidebar.Items>
                 </Sidebar>
 
-                {children}
-            </div>
+                <main className="w-[80%] container mx-4">{children}</main>
+            </main>
         </>
     );
 }

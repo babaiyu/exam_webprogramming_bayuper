@@ -1,14 +1,16 @@
 import React from "react";
-import { Head, LayoutAdmin } from "../Components";
+import { LayoutAdmin } from "../Components";
 
-export default function DashboardPage() {
+const DashboardPage = () => {
     return (
         <>
-            <Head title="Exam - Dashboard" />
-
-            <LayoutAdmin>
-                <h1 className="text-7xl">Welcome</h1>
-            </LayoutAdmin>
+            <h1 className="text-4xl">Dashboard</h1>
         </>
     );
-}
+};
+
+DashboardPage.layout = (page) => (
+    <LayoutAdmin children={page} title="Exam - Dashboard" />
+);
+
+export default DashboardPage;

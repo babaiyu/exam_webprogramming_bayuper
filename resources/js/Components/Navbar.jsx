@@ -13,7 +13,7 @@ export default function Navbar({ user = null }) {
 
     return (
         <Nav fluid={true} rounded={true}>
-            <Nav.Brand href="https://flowbite.com/">
+            <Nav.Brand href="/dashboard">
                 {/* <img
                     src="https://flowbite.com/docs/images/logo.svg"
                     className="mr-3 h-6 sm:h-9"
@@ -44,7 +44,6 @@ export default function Navbar({ user = null }) {
                     </Dropdown.Header>
                     <Dropdown.Item onClick={onLogout}>Sign out</Dropdown.Item>
                 </Dropdown>
-                <Nav.Toggle />
             </div>
         </Nav>
     );
