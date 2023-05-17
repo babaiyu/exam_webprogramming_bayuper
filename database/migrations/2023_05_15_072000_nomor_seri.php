@@ -17,12 +17,12 @@ return new class extends Migration
                 ->constrained(table: 'barang')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->decimal('serial_no');
+            $table->decimal('serial_no')->unique();
             $table->float('price');
             $table->date('prod_date');
-            $table->date('warranty_start');
-            $table->integer('warranty_duration');
-            $table->string('used');
+            $table->date('warranty_start')->nullable();
+            $table->integer('warranty_duration')->nullable();
+            $table->integer('used')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

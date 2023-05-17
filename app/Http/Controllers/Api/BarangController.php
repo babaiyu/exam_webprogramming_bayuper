@@ -11,11 +11,25 @@ class BarangController extends Controller
 {
     public function getBarang(Request $request)
     {
-        $barangs = DB::table('barang')->simplePaginate(10);
+        $barangs = DB::table('barang')
+            ->leftJoin('nomor_seri', 'barang.id', '=', 'nomor_seri.product_id')
+            ->select('barang.*', DB::raw('count(nomor_seri.id) as stocks'))
+            ->groupBy('barang.id')
+            ->simplePaginate(10);
 
         return response()->json([
             'success' => true,
             'data' => $barangs,
+        ]);
+    }
+
+    public function getBarangById(Request $request, $id)
+    {
+        $barang = DB::table('barang')->where('id', $id)->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => $barang,
         ]);
     }
 
@@ -102,6 +116,7 @@ class BarangController extends Controller
 
         if ($barang) {
             DB::table('barang')->where('id', $id)->delete();
+            DB::table('nomor_seri')->where('product_id', $id)->delete();
 
             return response()->json([
                 'success' => true,

@@ -19,6 +19,26 @@ class NomorSeriController extends Controller
         ]);
     }
 
+    public function getNomorSeriByProductID(Request $request, $product_id)
+    {
+        $nomorSeri = DB::table('nomor_seri')->where('product_id', $product_id)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $nomorSeri,
+        ]);
+    }
+
+    public function getNomorSeriById(Request $request, $id)
+    {
+        $nomorSeri = DB::table('nomor_seri')->where('id', $id)->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => $nomorSeri,
+        ]);
+    }
+
     public function insertNomorSeri(Request $request)
     {
         $findBarang = DB::table('barang')
@@ -52,7 +72,6 @@ class NomorSeriController extends Controller
             'prod_date' => $request->input('prod_date'),
             'warranty_start' => $request->input('warranty_start'),
             'warranty_duration' => $request->input('warranty_duration'),
-            'product_id' => $request->input('product_id'),
             'used' => $request->input('used'),
         ]);
         if ($nomorSeri) {

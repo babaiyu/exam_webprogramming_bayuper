@@ -13,3 +13,31 @@ export const schemaLogin = yupResolver(
             .required("Password wajib diisi!"),
     })
 );
+
+export const schemaBarangUpdate = yupResolver(
+    yup.object({
+        product_name: yup.string().required("Nama Barang wajib diisi!"),
+        brand: yup.string().required("Brand wajib diisi!"),
+        price: yup.number().required("Harga wajib diisi!"),
+        model_no: yup
+            .string()
+            .min(5, "Minimal 5 karakter")
+            .max(10, "Maksimal 10 karakter")
+            .required("Model No wajib diisi!"),
+    })
+);
+
+export const schemaNomorSeri = yupResolver(
+    yup.object({
+        serial_no: yup
+            .string()
+            .min(10, "Minimal 10 karakter")
+            .max(10, "Maksimal 10 karakter")
+            .required("Serial No wajib diisi!"),
+        price: yup.number().required("Harga wajib diisi!"),
+        prod_date: yup.date().required("Tanggal produksi wajib diisi!"),
+        warranty_start: yup.string().required("Tanggal Garansi wajib diisi!"),
+        warranty_duration: yup.number().required("Durasi Garansi wajib diisi!"),
+        // used: yup.number(),
+    })
+);

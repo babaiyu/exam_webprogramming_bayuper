@@ -32,12 +32,15 @@ Route::middleware('auth:api')->group(function () {
 
   // CRUD Barang
   Route::get('/barangs', [BarangController::class, 'getBarang']);
+  Route::get('/barang/{id}', [BarangController::class, 'getBarangById']);
   Route::post('/barang', [BarangController::class, 'insertBarang']);
   Route::patch('/barang/{id}', [BarangController::class, 'updateBarang']);
   Route::delete('/barang/{id}', [BarangController::class, 'deleteBarang']);
 
   // CRUD Nomor Seri
   Route::get('/nomor-seris', [NomorSeriController::class, 'getNomorSeri']);
+  Route::get('/nomor-seris/{product_id}', [NomorSeriController::class, 'getNomorSeriByProductID']);
+  Route::get('/nomor-seri/{id}', [NomorSeriController::class, 'getNomorSeriById']);
   Route::post('/nomor-seri', [NomorSeriController::class, 'insertNomorSeri']);
   Route::patch('/nomor-seri/{id}', [NomorSeriController::class, 'updateNomorSeri']);
   Route::delete('/nomor-seri/{id}', [NomorSeriController::class, 'deleteNomorSeri']);
