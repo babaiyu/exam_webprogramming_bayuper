@@ -4,7 +4,7 @@ import { LayoutAdmin } from "../Components";
 const DashboardPage = () => {
     return (
         <>
-            <h1 className="text-4xl">Dashboard</h1>
+            <h1 className="text-4xl mt-4">Dashboard</h1>
         </>
     );
 };

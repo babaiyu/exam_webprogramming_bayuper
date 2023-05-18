@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Label, Button } from "flowbite-react";
 import { Head } from "../Components";
@@ -37,6 +37,14 @@ export default function LoginPage() {
                 setLoading(false);
             });
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("TOKEN");
+
+        if (token) {
+            window.location.href = "/dashboard";
+        }
+    }, []);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Sidebar } from "flowbite-react";
 import {
     BanknotesIcon,
@@ -9,8 +9,13 @@ import {
 import Navbar from "./Navbar";
 import { apiGetUser } from "../Api";
 import Head from "./Head";
+import { router } from "@inertiajs/react";
 
-export default function LayoutAdmin({ children, title = "" }) {
+export default function LayoutAdmin({
+    children,
+    title = "",
+    roleFor = "ADMIN",
+}) {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
 
@@ -34,6 +39,16 @@ export default function LayoutAdmin({ children, title = "" }) {
         })();
     }, []);
 
+    const userRoles = useMemo(() => {
+        return user?.roles?.role_value;
+    }, [user]);
+
+    useEffect(() => {
+        if (roleFor !== userRoles) {
+            router.visit("/dashboard");
+        }
+    }, [userRoles, user, roleFor]);
+
     if (loading) {
         return <>Loading...</>;
     }
@@ -51,21 +66,28 @@ export default function LayoutAdmin({ children, title = "" }) {
                             <Sidebar.Item href="/dashboard" icon={ChartPieIcon}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item
-                                href="/products"
-                                icon={ShoppingBagIcon}
-                            >
-                                Barang
-                            </Sidebar.Item>
+                            {userRoles === "SUPER_ADMIN" ? (
+                                <Sidebar.Item
+                                    href="/products"
+                                    icon={ShoppingBagIcon}
+                                >
+                                    Barang
+                                </Sidebar.Item>
+                            ) : null}
                             <Sidebar.Item
                                 href="/transactions"
                                 icon={BanknotesIcon}
                             >
                                 Transaksi
                             </Sidebar.Item>
-                            <Sidebar.Item href="/report" icon={ChartBarIcon}>
-                                Laporan
-                            </Sidebar.Item>
+                            {userRoles === "SUPER_ADMIN" ? (
+                                <Sidebar.Item
+                                    href="/report"
+                                    icon={ChartBarIcon}
+                                >
+                                    Laporan
+                                </Sidebar.Item>
+                            ) : null}
                         </Sidebar.ItemGroup>
                     </Sidebar.Items>
                 </Sidebar>
