@@ -152,7 +152,7 @@ const ProductsPage = () => {
 };
 
 ProductsPage.layout = (page) => (
-    <LayoutAdmin children={page} title="Exam - Barang" />
+    <LayoutAdmin children={page} title="Exam - Barang" roleFor="SUPER_ADMIN" />
 );
 
 export default ProductsPage;

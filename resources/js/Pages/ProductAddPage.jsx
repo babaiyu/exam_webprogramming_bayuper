@@ -118,7 +118,11 @@ const ProductAddPage = () => {
 };
 
 ProductAddPage.layout = (page) => (
-    <LayoutAdmin children={page} title="Exam - Tambah Barang" />
+    <LayoutAdmin
+        children={page}
+        title="Exam - Tambah Barang"
+        roleFor="SUPER_ADMIN"
+    />
 );
 
 export default ProductAddPage;

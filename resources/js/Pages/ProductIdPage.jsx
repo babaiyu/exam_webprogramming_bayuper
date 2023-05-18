@@ -222,7 +222,9 @@ const ProductIdPage = ({ id }) => {
                                 </Table.Cell>
                                 <Table.Cell>Rp. {item?.price}</Table.Cell>
                                 <Table.Cell>
-                                    {item?.used >= 1 ? "Terjual" : "Ditambahkan"}
+                                    {item?.used >= 1
+                                        ? "Terjual"
+                                        : "Ditambahkan"}
                                 </Table.Cell>
                                 <Table.Cell>
                                     <button
@@ -285,7 +287,11 @@ const ProductIdPage = ({ id }) => {
 };
 
 ProductIdPage.layout = (page) => (
-    <LayoutAdmin children={page} title="Exam - Barang Detail" />
+    <LayoutAdmin
+        children={page}
+        title="Exam - Barang Detail"
+        roleFor="SUPER_ADMIN"
+    />
 );
 
 export default ProductIdPage;

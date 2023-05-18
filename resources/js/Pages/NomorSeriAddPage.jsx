@@ -148,7 +148,11 @@ const NomorSeriAddPage = ({ product_id }) => {
 };
 
 NomorSeriAddPage.layout = (page) => (
-    <LayoutAdmin children={page} title="Exam - Tambah Nomor Seri" />
+    <LayoutAdmin
+        children={page}
+        title="Exam - Tambah Nomor Seri"
+        roleFor="SUPER_ADMIN"
+    />
 );
 
 export default NomorSeriAddPage;
