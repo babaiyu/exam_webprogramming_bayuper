@@ -39,6 +39,19 @@ class NomorSeriController extends Controller
         ]);
     }
 
+    public function getNomorSeriProductIdAndUsed(Request $request, $product_id)
+    {
+        $nomorSeri = DB::table('nomor_seri')
+            ->where('product_id', $product_id)
+            ->where('used', 0)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $nomorSeri,
+        ]);
+    }
+
     public function insertNomorSeri(Request $request)
     {
         $findBarang = DB::table('barang')

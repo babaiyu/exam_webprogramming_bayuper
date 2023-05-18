@@ -71,6 +71,14 @@ export async function apiBarangDelete(token, id) {
     });
 }
 
+export async function apiBarangAllSimple(token) {
+    return await instance.get("/barangs-all", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
+
 // Nomor Seri
 export async function apiNomorSeri(token, product_id) {
     return await instance.get(`/nomor-seris/${product_id}`, {
@@ -109,5 +117,40 @@ export async function apiNomorSeriDelete(token, id) {
         headers: {
             Authorization: `Bearer ${token}`,
         },
+    });
+}
+
+export async function apiNomorSeriUsed(token, product_id) {
+    return await instance.get(`/nomor-seris/${product_id}/used`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
+
+// Transaksi
+export async function apiTransaksis(token) {
+    return await instance.get("/transaksis", {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+}
+
+export async function apiTransaksiAdd(token, body) {
+    return await instance.post("/transaksi", body, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+}
+
+export async function apiTransaksiDelete(token, id) {
+    return await instance.delete(`/transaksi/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
+
+export async function apiTransaksiDetail(token, id) {
+    return await instance.get(`/transaksi/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
     });
 }

@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Auth
 Route::get('/', [WebController::class, 'showHome']);
 Route::get('/login', [WebController::class, 'showLogin']);
 
 Route::get('/dashboard', [WebController::class, 'showDashboard']);
+// Barang
 Route::get('/products', [WebController::class, 'showProducts']);
 Route::get('/products/add', [WebController::class, 'showProductAdd']);
 Route::get('/products/{id}', [WebController::class, 'showProductById']);
+
+// Nomor Seri
 Route::get('/nomor-seri/{product_id}/add', [WebController::class, 'showNomorSeriAdd']);
 Route::get('/nomor-seri/{product_id}/{id}', [WebController::class, 'showNomorSeriId']);
+
+// Transaksi
+Route::get('/transactions', [WebController::class, 'showTransactions']);
+Route::get('/transactions/add', [WebController::class, 'showTransactionAdd']);
+Route::get('/transactions/{id}', [WebController::class, 'showTransactionId']);

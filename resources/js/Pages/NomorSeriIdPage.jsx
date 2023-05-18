@@ -167,7 +167,7 @@ const NomorSeriIdPage = ({ product_id, id }) => {
 };
 
 NomorSeriIdPage.layout = (page) => (
-    <LayoutAdmin children={page} title="Exam - Tambah Nomor Seri" />
+    <LayoutAdmin children={page} title="Exam - Nomor Seri Detail" />
 );
 
 export default NomorSeriIdPage;

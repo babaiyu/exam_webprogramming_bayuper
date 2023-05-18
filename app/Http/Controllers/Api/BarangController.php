@@ -13,9 +13,21 @@ class BarangController extends Controller
     {
         $barangs = DB::table('barang')
             ->leftJoin('nomor_seri', 'barang.id', '=', 'nomor_seri.product_id')
-            ->select('barang.*', DB::raw('count(nomor_seri.id) as stocks'))
+            ->select('barang.*', DB::raw('SUM(nomor_seri.used=0) as stocks'))
             ->groupBy('barang.id')
             ->simplePaginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $barangs,
+        ]);
+    }
+
+    public function getBarangAll(Request $request)
+    {
+        $barangs = DB::table('barang')
+            ->select('id', 'product_name', 'brand', 'price')
+            ->get();
 
         return response()->json([
             'success' => true,

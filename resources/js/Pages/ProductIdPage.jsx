@@ -222,7 +222,7 @@ const ProductIdPage = ({ id }) => {
                                 </Table.Cell>
                                 <Table.Cell>Rp. {item?.price}</Table.Cell>
                                 <Table.Cell>
-                                    {item?.used > 1 ? "Terjual" : "Ditambahkan"}
+                                    {item?.used >= 1 ? "Terjual" : "Ditambahkan"}
                                 </Table.Cell>
                                 <Table.Cell>
                                     <button

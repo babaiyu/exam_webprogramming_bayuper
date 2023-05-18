@@ -36,6 +36,7 @@ Route::middleware('auth:api')->group(function () {
   Route::post('/barang', [BarangController::class, 'insertBarang']);
   Route::patch('/barang/{id}', [BarangController::class, 'updateBarang']);
   Route::delete('/barang/{id}', [BarangController::class, 'deleteBarang']);
+  Route::get('/barangs-all', [BarangController::class, 'getBarangAll']);
 
   // CRUD Nomor Seri
   Route::get('/nomor-seris', [NomorSeriController::class, 'getNomorSeri']);
@@ -44,9 +45,11 @@ Route::middleware('auth:api')->group(function () {
   Route::post('/nomor-seri', [NomorSeriController::class, 'insertNomorSeri']);
   Route::patch('/nomor-seri/{id}', [NomorSeriController::class, 'updateNomorSeri']);
   Route::delete('/nomor-seri/{id}', [NomorSeriController::class, 'deleteNomorSeri']);
+  Route::get('/nomor-seris/{product_id}/used', [NomorSeriController::class, 'getNomorSeriProductIdAndUsed']);
 
   // CRUD Transaksi
   Route::get('/transaksis', [TransaksiController::class, 'getAllTransaksi']);
-  Route::post('/transaksi', [TransaksiController::class, 'insertTransaksi']);
+  Route::post('/transaksi', [TransaksiController::class, 'insertTransaksiV2']);
   Route::delete('/transaksi/{id}', [TransaksiController::class, 'deleteTransaksi']);
+  Route::get('/transaksi/{id}', [TransaksiController::class, 'getTransaksiDetail']);
 });

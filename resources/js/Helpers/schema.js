@@ -41,3 +41,14 @@ export const schemaNomorSeri = yupResolver(
         // used: yup.number(),
     })
 );
+
+export const schemaTransaksi = yupResolver(
+    yup.object({
+        no_trans: yup.string().required("Nomor Transaksi wajib diisi!"),
+        tanggal: yup.date().required("Tanggal wajib diisi!"),
+        customer_vendor: yup
+            .string()
+            .required("Customer / Vendor wajib diisi!"),
+        tipe_trans: yup.string().required("Tipe Transaksi wajib diisi!"),
+    })
+);

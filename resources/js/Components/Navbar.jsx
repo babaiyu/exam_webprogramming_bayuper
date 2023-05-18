@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Navbar as Nav, Avatar, Dropdown } from "flowbite-react";
 import { apiLogout } from "../Api";
 
@@ -11,14 +11,18 @@ export default function Navbar({ user = null }) {
         });
     };
 
+    const renderPlaceholderInitials = useMemo(() => {
+        switch (user?.roles?.role_value ?? "") {
+            case "SUPER_ADMIN":
+                return "SA";
+            default:
+                return "A";
+        }
+    }, [user]);
+
     return (
-        <Nav fluid={true} rounded={true}>
+        <Nav fluid={true} rounded={true} className="sticky top-0 z-40 border-b">
             <Nav.Brand href="/dashboard">
-                {/* <img
-                    src="https://flowbite.com/docs/images/logo.svg"
-                    className="mr-3 h-6 sm:h-9"
-                    alt="Flowbite Logo"
-                /> */}
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                     Exam Web Programming
                 </span>
@@ -29,10 +33,9 @@ export default function Navbar({ user = null }) {
                     inline={true}
                     label={
                         <Avatar
+                            rounded
                             alt="User Menu"
-                            img="/images/avatar.jpg"
-                            className="object-cover"
-                            rounded={true}
+                            placeholderInitials={renderPlaceholderInitials}
                         />
                     }
                 >
@@ -42,7 +45,7 @@ export default function Navbar({ user = null }) {
                             {user?.email}
                         </span>
                     </Dropdown.Header>
-                    <Dropdown.Item onClick={onLogout}>Sign out</Dropdown.Item>
+                    <Dropdown.Item onClick={onLogout}>Keluar</Dropdown.Item>
                 </Dropdown>
             </div>
         </Nav>

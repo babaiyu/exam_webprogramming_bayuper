@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class WebController extends Controller
 {
+    // Auth
     public function showHome(Request $request)
     {
         return Inertia::render('HomePage');
@@ -18,11 +19,13 @@ class WebController extends Controller
         return Inertia::render('LoginPage');
     }
 
+    // Dashboard
     public function showDashboard(Request $request)
     {
         return Inertia::render('DashboardPage');
     }
 
+    // Barang
     public function showProducts(Request $request)
     {
         return Inertia::render('ProductsPage');
@@ -38,6 +41,7 @@ class WebController extends Controller
         return Inertia::render('ProductIdPage', ['id' => $id]);
     }
 
+    // Nomor Seri
     public function showNomorSeriAdd(Request $request, $product_id)
     {
         return Inertia::render('NomorSeriAddPage', ['product_id' => $product_id]);
@@ -46,5 +50,21 @@ class WebController extends Controller
     public function showNomorSeriId(Request $request, $product_id, $id)
     {
         return Inertia::render('NomorSeriIdPage', ['product_id' => $product_id, 'id' => $id]);
+    }
+
+    // Transaksi
+    public function showTransactions(Request $request)
+    {
+        return Inertia::render('TransactionsPage');
+    }
+
+    public function showTransactionAdd(Request $request)
+    {
+        return Inertia::render('TransactionAddPage');
+    }
+
+    public function showTransactionId(Request $request, $id)
+    {
+        return Inertia::render('TransactionIdPage', ['id' => $id]);
     }
 }
