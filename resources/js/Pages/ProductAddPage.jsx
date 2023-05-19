@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { LayoutAdmin } from "../Components";
@@ -17,12 +17,8 @@ const ProductAddPage = () => {
         },
     });
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onSubmitBarang = formBarang.handleSubmit(async (data) => {
-        await apiBarangAdd(token, data)
+        await apiBarangAdd(data)
             .then(async (res) => {
                 alert(`Success - ${res?.data?.message}`);
                 router.visit("/products");

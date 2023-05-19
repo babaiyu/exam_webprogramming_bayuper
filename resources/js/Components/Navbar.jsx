@@ -4,8 +4,7 @@ import { apiLogout } from "../Api";
 
 export default function Navbar({ user = null }) {
     const onLogout = async () => {
-        const token = localStorage.getItem("TOKEN");
-        await apiLogout(token).finally(() => {
+        await apiLogout().finally(() => {
             localStorage.clear();
             window.location.href = "/login";
         });

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -28,10 +28,6 @@ const NomorSeriAddPage = ({ product_id }) => {
     });
     const [loading, setLoading] = useState(false);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onSubmitNomorSeri = handleSubmit(async (data) => {
         setLoading(true);
 
@@ -41,7 +37,7 @@ const NomorSeriAddPage = ({ product_id }) => {
             prod_date: dayjs(data.prod_date).format(),
         };
 
-        await apiNomorSeriAdd(token, payload)
+        await apiNomorSeriAdd(payload)
             .then((res) => {
                 alert("Berhasil menambahkan nomor seri!");
                 router.visit(`/products/${product_id}`);
@@ -96,6 +92,7 @@ const NomorSeriAddPage = ({ product_id }) => {
                         onChange={(date) => setValue("prod_date", date)}
                         className="text-black"
                         dateFormat="yyyy/MM/dd"
+                        locale="id"
                     />
                     <span className="text-sm text-red-500">
                         {errors?.prod_date?.message}
@@ -113,6 +110,7 @@ const NomorSeriAddPage = ({ product_id }) => {
                         onChange={(date) => setValue("warranty_start", date)}
                         className="text-black"
                         dateFormat="yyyy/MM/dd"
+                        locale="id"
                     />
                     <span className="text-sm text-red-500">
                         {errors?.warranty_start?.message}

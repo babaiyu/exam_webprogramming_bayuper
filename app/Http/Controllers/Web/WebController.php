@@ -67,4 +67,10 @@ class WebController extends Controller
     {
         return Inertia::render('TransactionIdPage', ['id' => $id]);
     }
+
+    // Report
+    public function showReport(Request $request)
+    {
+        return Inertia::render('ReportPage');
+    }
 }

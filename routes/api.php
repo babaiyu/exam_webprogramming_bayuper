@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BarangController;
+use App\Http\Controllers\Api\LaporanController;
 use App\Http\Controllers\Api\NomorSeriController;
 use App\Http\Controllers\Api\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -52,4 +53,8 @@ Route::middleware('auth:api')->group(function () {
   Route::post('/transaksi', [TransaksiController::class, 'insertTransaksiV2']);
   Route::delete('/transaksi/{id}', [TransaksiController::class, 'deleteTransaksi']);
   Route::get('/transaksi/{id}', [TransaksiController::class, 'getTransaksiDetail']);
+
+  // Laporan
+  Route::get('/laporans', [LaporanController::class, 'getReport']);
+  Route::get('/laporans/products', [LaporanController::class, 'getProductsStock']);
 });

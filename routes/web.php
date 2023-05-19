@@ -32,3 +32,6 @@ Route::get('/nomor-seri/{product_id}/{id}', [WebController::class, 'showNomorSer
 Route::get('/transactions', [WebController::class, 'showTransactions']);
 Route::get('/transactions/add', [WebController::class, 'showTransactionAdd']);
 Route::get('/transactions/{id}', [WebController::class, 'showTransactionId']);
+
+// Report
+Route::get('/report', [WebController::class, 'showReport']);
