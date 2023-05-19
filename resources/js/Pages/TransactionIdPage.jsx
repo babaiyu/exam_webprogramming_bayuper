@@ -1,30 +1,22 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "@inertiajs/react";
-import { Button, Table, Modal, Timeline } from "flowbite-react";
+import { Timeline } from "flowbite-react";
 import {
     ArrowTrendingDownIcon,
     ArrowTrendingUpIcon,
     CubeIcon,
-    ExclamationCircleIcon,
-    PencilSquareIcon,
-    TrashIcon,
 } from "@heroicons/react/24/solid";
 import dayjs from "dayjs";
+import clsx from "clsx";
 import { LayoutAdmin } from "../Components";
 import { apiTransaksiDetail } from "../Api";
 import { stringFirstCapital } from "../Helpers/helper";
-import clsx from "clsx";
 
 const TransactionIdPage = ({ id }) => {
     const [transaksi, setTransaksi] = useState(null);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     useEffect(() => {
         (async () => {
-            await apiTransaksiDetail(token, id).then((res) => {
+            await apiTransaksiDetail(id).then((res) => {
                 setTransaksi(res.data?.data);
             });
         })();

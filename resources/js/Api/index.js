@@ -1,156 +1,116 @@
 import axios from "axios";
 
+const token = localStorage.getItem("TOKEN");
+
 const instance = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
     timeout: 36000, // timeout 1s
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
     },
 });
+
+instance.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (error?.response?.status === 401) {
+            localStorage.clear();
+        }
+        return Promise.reject(error);
+    }
+);
 
 // Auth
 export async function apiLogin(body) {
     return await instance.post("/login", body);
 }
 
-export async function apiGetUser(token) {
-    return await instance.get("/user", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiGetUser() {
+    return await instance.get("/user");
 }
 
-export async function apiLogout(token) {
-    return await instance.delete("/logout", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiLogout() {
+    return await instance.delete("/logout");
 }
 
 // Barang
-export async function apiBarangAll(token, page) {
-    return await instance.get(`/barangs?page=${page}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangAll(page) {
+    return await instance.get(`/barangs?page=${page}`);
 }
 
-export async function apiBarangByID(token, id) {
-    return await instance.get(`/barang/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangByID(id) {
+    return await instance.get(`/barang/${id}`);
 }
 
-export async function apiBarangAdd(token, body) {
-    return await instance.post("/barang", body, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangAdd(body) {
+    return await instance.post("/barang", body);
 }
 
-export async function apiBarangUpdate(token, id, body) {
-    return await instance.patch(`/barang/${id}`, body, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangUpdate(id, body) {
+    return await instance.patch(`/barang/${id}`);
 }
 
-export async function apiBarangDelete(token, id) {
-    return await instance.delete(`/barang/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangDelete(id) {
+    return await instance.delete(`/barang/${id}`);
 }
 
-export async function apiBarangAllSimple(token) {
-    return await instance.get("/barangs-all", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiBarangAllSimple() {
+    return await instance.get("/barangs-all");
 }
 
 // Nomor Seri
-export async function apiNomorSeri(token, product_id) {
-    return await instance.get(`/nomor-seris/${product_id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeri(product_id) {
+    return await instance.get(`/nomor-seris/${product_id}`);
 }
 
-export async function apiNomorSeriAdd(token, body) {
-    return await instance.post(`/nomor-seri`, body, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeriAdd(body) {
+    return await instance.post(`/nomor-seri`, body);
 }
 
-export async function apiNomorSeriId(token, id) {
-    return await instance.get(`/nomor-seri/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeriId(id) {
+    return await instance.get(`/nomor-seri/${id}`);
 }
 
-export async function apiNomorSeriUpdate(token, id, body) {
-    return await instance.patch(`/nomor-seri/${id}`, body, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeriUpdate(id, body) {
+    return await instance.patch(`/nomor-seri/${id}`);
 }
 
-export async function apiNomorSeriDelete(token, id) {
-    return await instance.delete(`/nomor-seri/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeriDelete(id) {
+    return await instance.delete(`/nomor-seri/${id}`);
 }
 
-export async function apiNomorSeriUsed(token, product_id) {
-    return await instance.get(`/nomor-seris/${product_id}/used`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiNomorSeriUsed(product_id) {
+    return await instance.get(`/nomor-seris/${product_id}/used`);
 }
 
 // Transaksi
-export async function apiTransaksis(token) {
-    return await instance.get("/transaksis", {
-        headers: { Authorization: `Bearer ${token}` },
-    });
+export async function apiTransaksis() {
+    return await instance.get("/transaksis");
 }
 
-export async function apiTransaksiAdd(token, body) {
-    return await instance.post("/transaksi", body, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
+export async function apiTransaksiAdd(body) {
+    return await instance.post("/transaksi", body);
 }
 
-export async function apiTransaksiDelete(token, id) {
-    return await instance.delete(`/transaksi/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+export async function apiTransaksiDelete(id) {
+    return await instance.delete(`/transaksi/${id}`);
 }
 
-export async function apiTransaksiDetail(token, id) {
-    return await instance.get(`/transaksi/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
+export async function apiTransaksiDetail(id) {
+    return await instance.get(`/transaksi/${id}`);
+}
+
+// Laporan
+export async function apiReports(tipe_trans, month, year) {
+    return await instance.get(
+        `/laporans?tipe_trans=${tipe_trans}&month=${month}&year=${year}`
+    );
+}
+
+export async function apiReportsProducts() {
+    return await instance.get("/laporans/products");
 }

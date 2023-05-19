@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, router } from "@inertiajs/react";
 import { Button, Table, Modal } from "flowbite-react";
 import {
@@ -16,16 +16,12 @@ const TransactionsPage = () => {
     const [loading, setLoading] = useState(false);
     const [modalDelete, setModalDelete] = useState(null);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onShowModalDelete = (data) => () => {
         setModalDelete(data);
     };
 
     const onGetTransaksis = async () => {
-        await apiTransaksis(token).then((res) => {
+        await apiTransaksis().then((res) => {
             const response = res.data?.data;
             setTransaksis(response?.data);
         });
@@ -37,7 +33,7 @@ const TransactionsPage = () => {
 
     const onDeleteTransaksi = async () => {
         setLoading(true);
-        await apiTransaksiDelete(token, modalDelete?.id)
+        await apiTransaksiDelete(modalDelete?.id)
             .then((res) => {
                 alert("Berhasil menghapus transaksi!");
             })

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Label, TextInput, Button, Modal } from "flowbite-react";
 import {
     TrashIcon,
@@ -32,16 +32,12 @@ const ProductIdPage = ({ id }) => {
         },
     });
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onShowModalDelete = (data) => () => {
         setModalDelete(data);
     };
 
     const onGetBarangByID = async () => {
-        await apiBarangByID(token, id).then((res) => {
+        await apiBarangByID(id).then((res) => {
             const data = res.data?.data;
             formBarang.setValue("product_name", data?.product_name);
             formBarang.setValue("brand", data?.brand);
@@ -51,14 +47,14 @@ const ProductIdPage = ({ id }) => {
     };
 
     const onGetNomorSeri = async () => {
-        await apiNomorSeri(token, id).then((res) => {
+        await apiNomorSeri(id).then((res) => {
             setNomorSeri(res.data?.data ?? []);
         });
     };
 
     const onDeleteNomorSeri = async () => {
         setLoading(true);
-        await apiNomorSeriDelete(token, modalDelete?.id)
+        await apiNomorSeriDelete(modalDelete?.id)
             .then((res) => {
                 alert("Berhasil menghapus nomor seri!");
                 Promise.all([onGetBarangByID(), onGetNomorSeri()]);
@@ -73,7 +69,7 @@ const ProductIdPage = ({ id }) => {
     };
 
     const onSubmitBarangUpdate = formBarang.handleSubmit(async (data) => {
-        await apiBarangUpdate(token, id, data)
+        await apiBarangUpdate(id, data)
             .then(async (res) => {
                 alert(`Success - ${res?.data?.message}`);
                 await onGetBarangByID();

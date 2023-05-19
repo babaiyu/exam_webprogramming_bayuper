@@ -38,10 +38,6 @@ const TransactionAddPage = () => {
     const [idNomorSeri, setIdNomorSeri] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onSetModalTambah = () => {
         setModalTambah((v) => !v);
         setIdBarang(null);
@@ -110,7 +106,7 @@ const TransactionAddPage = () => {
             })),
         };
 
-        await apiTransaksiAdd(token, payload)
+        await apiTransaksiAdd(payload)
             .then((res) => {
                 alert("Berhasil membuat transaksi");
                 router.visit("/transactions");
@@ -128,7 +124,7 @@ const TransactionAddPage = () => {
         setValue("tanggal", dayjs().toDate());
 
         (async () => {
-            await apiBarangAllSimple(token).then((res) => {
+            await apiBarangAllSimple().then((res) => {
                 setBarangs(res.data?.data ?? []);
             });
         })();
@@ -137,7 +133,7 @@ const TransactionAddPage = () => {
     useEffect(() => {
         (async () => {
             if (idBarang !== null && watch("tipe_trans") === "penjualan") {
-                await apiNomorSeriUsed(token, idBarang).then((res) => {
+                await apiNomorSeriUsed(idBarang).then((res) => {
                     setNomorSeri(res.data?.data ?? []);
                 });
             }
@@ -335,6 +331,7 @@ const TransactionAddPage = () => {
                                         disabled={
                                             watch("tipe_trans") === "penjualan"
                                         }
+                                        locale="id"
                                     />
                                     {/* <span className="text-sm text-red-500">
                                         {errors?.prod_date?.message}
@@ -359,6 +356,7 @@ const TransactionAddPage = () => {
                                         }
                                         className="text-black"
                                         dateFormat="yyyy/MM/dd"
+                                        locale="id"
                                     />
                                     {/* <span className="text-sm text-red-500">
                                         {errors?.warranty_start?.message}

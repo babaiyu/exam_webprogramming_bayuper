@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import dayjs from "dayjs";
 import { LayoutAdmin } from "../Components";
 import { schemaNomorSeri } from "../Helpers/schema";
-import { apiNomorSeriAdd, apiNomorSeriId, apiNomorSeriUpdate } from "../Api";
+import { apiNomorSeriId, apiNomorSeriUpdate } from "../Api";
 import { router } from "@inertiajs/react";
 
 const NomorSeriIdPage = ({ product_id, id }) => {
@@ -28,10 +28,6 @@ const NomorSeriIdPage = ({ product_id, id }) => {
     });
     const [loading, setLoading] = useState(false);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onSubmitNomorSeri = handleSubmit(async (data) => {
         setLoading(true);
 
@@ -42,7 +38,7 @@ const NomorSeriIdPage = ({ product_id, id }) => {
             warranty_start: dayjs(data.warranty_start).format(),
         };
 
-        await apiNomorSeriUpdate(token, id, payload)
+        await apiNomorSeriUpdate(id, payload)
             .then((res) => {
                 alert("Berhasil mengubah nomor seri!");
                 router.visit(`/products/${product_id}`);
@@ -57,7 +53,7 @@ const NomorSeriIdPage = ({ product_id, id }) => {
 
     useEffect(() => {
         (async () => {
-            await apiNomorSeriId(token, id).then((res) => {
+            await apiNomorSeriId(id).then((res) => {
                 const theData = res.data?.data;
                 setValue("serial_no", theData?.serial_no);
                 setValue("price", theData?.price);
@@ -115,6 +111,7 @@ const NomorSeriIdPage = ({ product_id, id }) => {
                         onChange={(date) => setValue("prod_date", date)}
                         className="text-black"
                         dateFormat="yyyy/MM/dd"
+                        locale="id"
                     />
                     <span className="text-sm text-red-500">
                         {errors?.prod_date?.message}
@@ -132,6 +129,7 @@ const NomorSeriIdPage = ({ product_id, id }) => {
                         onChange={(date) => setValue("warranty_start", date)}
                         className="text-black"
                         dateFormat="yyyy/MM/dd"
+                        locale="id"
                     />
                     <span className="text-sm text-red-500">
                         {errors?.warranty_start?.message}

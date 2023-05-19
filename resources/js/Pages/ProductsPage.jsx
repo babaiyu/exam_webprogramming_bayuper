@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 import { Button, Table, Modal } from "flowbite-react";
@@ -16,10 +16,6 @@ const ProductsPage = () => {
     const [modalDelete, setModalDelete] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const token = useMemo(() => {
-        return localStorage.getItem("TOKEN");
-    }, []);
-
     const onGoDetail = (id) => () => {
         const route = `/products/${id}`;
         router.visit(route);
@@ -32,7 +28,7 @@ const ProductsPage = () => {
     const onDeleteBarang = async () => {
         setLoading(true);
 
-        await apiBarangDelete(token, modalDelete?.id)
+        await apiBarangDelete(modalDelete?.id)
             .then((res) => {
                 alert("Berhasil hapus barang!");
             })
@@ -42,7 +38,7 @@ const ProductsPage = () => {
             .finally(async () => {
                 setLoading(false);
                 setModalDelete(null);
-                await apiBarangAll(token, page).then((res) => {
+                await apiBarangAll(page).then((res) => {
                     const response = res.data?.data;
                     setBarang(response?.data ?? []);
                 });
@@ -51,7 +47,7 @@ const ProductsPage = () => {
 
     useEffect(() => {
         (async () => {
-            await apiBarangAll(token, page).then((res) => {
+            await apiBarangAll(page).then((res) => {
                 const response = res.data?.data;
                 setBarang(response?.data ?? []);
             });

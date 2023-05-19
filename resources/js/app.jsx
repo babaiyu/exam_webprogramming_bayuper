@@ -1,9 +1,17 @@
 import "./bootstrap";
-import React from "react";
 import { createInertiaApp } from "@inertiajs/react";
 import { createRoot } from "react-dom/client";
-import 'flowbite';
+import React from "react";
+import dayjs from "dayjs";
+import { registerLocale } from "react-datepicker";
+import idLocale from "date-fns/locale/id";
+import "flowbite";
+import "dayjs/locale/id";
 import "react-datepicker/dist/react-datepicker.css";
+
+dayjs.locale("id");
+dayjs().locale("id").format();
+registerLocale("id", idLocale);
 
 createInertiaApp({
     resolve: (name) => {

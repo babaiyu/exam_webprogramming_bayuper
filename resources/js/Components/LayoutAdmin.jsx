@@ -9,7 +9,7 @@ import {
 import Navbar from "./Navbar";
 import { apiGetUser } from "../Api";
 import Head from "./Head";
-import { router } from "@inertiajs/react";
+import Footer from "./Footer";
 
 export default function LayoutAdmin({
     children,
@@ -22,8 +22,7 @@ export default function LayoutAdmin({
     useEffect(() => {
         (async () => {
             setLoading(true);
-            const token = localStorage.getItem("TOKEN");
-            await apiGetUser(token)
+            await apiGetUser()
                 .then((res) => {
                     const response = res.data;
                     setUser(response);
@@ -44,10 +43,12 @@ export default function LayoutAdmin({
     }, [user]);
 
     useEffect(() => {
-        if (roleFor !== userRoles) {
-            router.visit("/dashboard");
+        if (userRoles === "SUPER_ADMIN") {
+            return;
         }
-    }, [userRoles, user, roleFor]);
+
+        return;
+    }, [roleFor]);
 
     if (loading) {
         return <>Loading...</>;
@@ -94,6 +95,8 @@ export default function LayoutAdmin({
 
                 <main className="w-[80%] container mx-4">{children}</main>
             </main>
+
+            <Footer />
         </>
     );
 }
