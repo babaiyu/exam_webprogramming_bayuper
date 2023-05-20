@@ -16,6 +16,7 @@ import {
 } from "../Api";
 import { schemaBarangUpdate } from "../Helpers/schema";
 import { Link, router } from "@inertiajs/react";
+import { rupiah } from "../Helpers/helper";
 
 const ProductIdPage = ({ id }) => {
     const [nomorSeri, setNomorSeri] = useState([]);
@@ -216,7 +217,7 @@ const ProductIdPage = ({ id }) => {
                                 <Table.Cell>
                                     {item?.warranty_duration} /bulan
                                 </Table.Cell>
-                                <Table.Cell>Rp. {item?.price}</Table.Cell>
+                                <Table.Cell>{rupiah(item?.price ?? 0)}</Table.Cell>
                                 <Table.Cell>
                                     {item?.used >= 1
                                         ? "Terjual"

@@ -51,7 +51,7 @@ export async function apiBarangAdd(body) {
 }
 
 export async function apiBarangUpdate(id, body) {
-    return await instance.patch(`/barang/${id}`);
+    return await instance.patch(`/barang/${id}`, body);
 }
 
 export async function apiBarangDelete(id) {
@@ -76,7 +76,7 @@ export async function apiNomorSeriId(id) {
 }
 
 export async function apiNomorSeriUpdate(id, body) {
-    return await instance.patch(`/nomor-seri/${id}`);
+    return await instance.patch(`/nomor-seri/${id}`, body);
 }
 
 export async function apiNomorSeriDelete(id) {
@@ -88,8 +88,8 @@ export async function apiNomorSeriUsed(product_id) {
 }
 
 // Transaksi
-export async function apiTransaksis() {
-    return await instance.get("/transaksis");
+export async function apiTransaksis(page) {
+    return await instance.get(`/transaksis?page=${page}`);
 }
 
 export async function apiTransaksiAdd(body) {

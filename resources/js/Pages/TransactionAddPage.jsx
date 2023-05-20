@@ -21,7 +21,6 @@ const TransactionAddPage = () => {
         resolver: schemaTransaksi,
         defaultValues: {
             no_trans: "",
-            tanggal: "",
             customer_vendor: "",
             tipe_trans: "pembelian",
         },
@@ -85,7 +84,7 @@ const TransactionAddPage = () => {
         const payload = {
             transaksi: {
                 no_trans: data?.no_trans,
-                tanggal: dayjs(data?.tanggal).format(),
+                tanggal: dayjs().format(),
                 customer_vendor: data?.customer_vendor,
                 tipe_trans: data?.tipe_trans,
             },
@@ -169,7 +168,7 @@ const TransactionAddPage = () => {
                             />
                         </div>
 
-                        <div className="mb-2">
+                        {/* <div className="mb-2">
                             <Label htmlFor="tanggal" value="Tanggal" />
                             <TextInput
                                 {...register("tanggal")}
@@ -182,7 +181,7 @@ const TransactionAddPage = () => {
                                     </span>
                                 }
                             />
-                        </div>
+                        </div> */}
 
                         <div className="mb-2">
                             <Label
@@ -224,7 +223,6 @@ const TransactionAddPage = () => {
                             <Button
                                 type="button"
                                 onClick={onSetModalTambah}
-                                // disabled={watch("tipe_trans") === "penjualan"}
                                 disabled={
                                     watch("transactions")?.length > 0 &&
                                     watch("tipe_trans") === "penjualan" &&

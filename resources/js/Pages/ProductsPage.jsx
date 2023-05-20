@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
-import { Button, Table, Modal } from "flowbite-react";
+import { Button, Table, Modal, Pagination } from "flowbite-react";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { LayoutAdmin } from "../Components";
 import { apiBarangAll, apiBarangDelete } from "../Api";
@@ -9,12 +9,19 @@ import {
     ExclamationCircleIcon,
     PencilSquareIcon,
 } from "@heroicons/react/24/solid";
+import { rupiah } from "../Helpers/helper";
 
 const ProductsPage = () => {
     const [page, setPage] = useState(1);
     const [barang, setBarang] = useState([]);
+    const [barangInfo, setBarangInfo] = useState(null);
     const [modalDelete, setModalDelete] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const onPageChange = (v) => {
+        console.log("page => ", v);
+        setPage(v);
+    };
 
     const onGoDetail = (id) => () => {
         const route = `/products/${id}`;
@@ -49,10 +56,12 @@ const ProductsPage = () => {
         (async () => {
             await apiBarangAll(page).then((res) => {
                 const response = res.data?.data;
+                let info = response;
                 setBarang(response?.data ?? []);
+                setBarangInfo(info);
             });
         })();
-    }, []);
+    }, [page]);
 
     return (
         <>
@@ -85,7 +94,7 @@ const ProductsPage = () => {
                             </Table.Cell>
                             <Table.Cell>{item?.brand}</Table.Cell>
                             <Table.Cell>{item?.model_no}</Table.Cell>
-                            <Table.Cell>Rp. {item?.price}</Table.Cell>
+                            <Table.Cell>{rupiah(item?.price ?? 0)}</Table.Cell>
                             <Table.Cell>{item?.stocks}</Table.Cell>
                             <Table.Cell>
                                 <button
@@ -107,6 +116,16 @@ const ProductsPage = () => {
                     ))}
                 </Table.Body>
             </Table>
+
+            <div className="flex items-center justify-center text-center">
+                <Pagination
+                    currentPage={barangInfo?.current_page}
+                    layout="navigation"
+                    onPageChange={onPageChange}
+                    showIcons={true}
+                    totalPages={100}
+                />
+            </div>
 
             {/* Modal Delete */}
             <Modal

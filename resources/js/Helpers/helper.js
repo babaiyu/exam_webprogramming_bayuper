@@ -4,3 +4,12 @@ export function stringFirstCapital(text = "") {
 
     return firstCapital + lastText;
 }
+
+export function rupiah(number = 0) {
+    const rupiahNumber = new Intl.NumberFormat("id-ID", {
+        style: 'currency',
+        currency: 'IDR',
+    }).format(number);
+
+    return rupiahNumber;
+}

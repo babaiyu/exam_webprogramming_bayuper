@@ -11,13 +11,13 @@ import {
     Legend,
     CartesianGrid,
     Bar,
-    Tooltip
+    Tooltip,
 } from "recharts";
 import DatePicker from "react-datepicker";
 import dayjs from "dayjs";
 import { LayoutAdmin } from "../Components";
 import { apiReports, apiReportsProducts } from "../Api";
-import { stringFirstCapital } from "../Helpers/helper";
+import { rupiah, stringFirstCapital } from "../Helpers/helper";
 import {
     ArrowTrendingDownIcon,
     ArrowTrendingUpIcon,
@@ -197,7 +197,7 @@ const ReportPage = () => {
                                                 ) : null}
                                             </Table.Cell>
                                             <Table.Cell>
-                                                Rp. {item?.price}
+                                                {rupiah(item?.price ?? 0)}
                                             </Table.Cell>
                                             <Table.Cell></Table.Cell>
                                         </Table.Row>
@@ -215,14 +215,14 @@ const ReportPage = () => {
                                 </h2>
                                 <p>
                                     <span className="text-green-500">
-                                        Pemasukan = Rp.{" "}
-                                        {data?.info?.month_income}
+                                        Pemasukan =
+                                        {rupiah(data?.info?.month_income ?? 0)}
                                     </span>
                                 </p>
                                 <p>
                                     <span className="text-red-500">
-                                        Pengeluaran = Rp.{" "}
-                                        {data?.info?.month_outcome}
+                                        Pengeluaran =
+                                        {rupiah(data?.info?.month_outcome ?? 0)}
                                     </span>
                                 </p>
 

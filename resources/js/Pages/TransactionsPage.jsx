@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, router } from "@inertiajs/react";
-import { Button, Table, Modal } from "flowbite-react";
+import { Button, Table, Modal, Pagination } from "flowbite-react";
 import {
     ExclamationCircleIcon,
     PencilSquareIcon,
@@ -9,21 +9,28 @@ import {
 import dayjs from "dayjs";
 import { LayoutAdmin } from "../Components";
 import { apiTransaksiDelete, apiTransaksis } from "../Api";
-import { stringFirstCapital } from "../Helpers/helper";
+import { rupiah, stringFirstCapital } from "../Helpers/helper";
 
 const TransactionsPage = () => {
     const [transaksis, setTransaksis] = useState([]);
+    const [transaksiInfo, setTransaksiInfo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [modalDelete, setModalDelete] = useState(null);
+    const [page, setPage] = useState(1);
+
+    const onPageChange = (v) => {
+        setPage(v);
+    };
 
     const onShowModalDelete = (data) => () => {
         setModalDelete(data);
     };
 
     const onGetTransaksis = async () => {
-        await apiTransaksis().then((res) => {
+        await apiTransaksis(page).then((res) => {
             const response = res.data?.data;
             setTransaksis(response?.data);
+            setTransaksiInfo(response);
         });
     };
 
@@ -43,6 +50,7 @@ const TransactionsPage = () => {
             .finally(async () => {
                 setLoading(false);
                 setModalDelete(null);
+                setPage(1);
                 await onGetTransaksis();
             });
     };
@@ -51,7 +59,7 @@ const TransactionsPage = () => {
         (async () => {
             await onGetTransaksis();
         })();
-    }, []);
+    }, [page]);
 
     return (
         <>
@@ -89,7 +97,7 @@ const TransactionsPage = () => {
                             <Table.Cell>
                                 {stringFirstCapital(item?.tipe_trans)}
                             </Table.Cell>
-                            <Table.Cell>Rp. {item?.price}</Table.Cell>
+                            <Table.Cell>{rupiah(item?.price ?? 0)}</Table.Cell>
                             <Table.Cell>
                                 <button
                                     onClick={onGoDetailTransaksi(item?.id)}
@@ -110,6 +118,16 @@ const TransactionsPage = () => {
                     ))}
                 </Table.Body>
             </Table>
+
+            <div className="flex items-center justify-center text-center">
+                <Pagination
+                    currentPage={transaksiInfo?.current_page ?? 1}
+                    layout="navigation"
+                    onPageChange={onPageChange}
+                    showIcons={true}
+                    totalPages={100}
+                />
+            </div>
 
             <Modal
                 show={modalDelete !== null}

@@ -15,6 +15,7 @@ class BarangController extends Controller
             ->leftJoin('nomor_seri', 'barang.id', '=', 'nomor_seri.product_id')
             ->select('barang.*', DB::raw('SUM(nomor_seri.used=0) as stocks'))
             ->groupBy('barang.id')
+            ->orderBy('stocks', 'desc')
             ->simplePaginate(10);
 
         return response()->json([

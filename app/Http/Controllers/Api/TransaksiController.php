@@ -16,6 +16,7 @@ class TransaksiController extends Controller
             ->leftJoin('transaksi_detail', 'transaksi.id', '=', 'transaksi_detail.transaksi_id')
             ->select('transaksi.*', DB::raw('SUM(transaksi_detail.price) as price'))
             ->groupBy('transaksi.id')
+            ->orderBy('transaksi.tanggal', 'desc')
             ->simplePaginate(10);
 
         return response()->json([

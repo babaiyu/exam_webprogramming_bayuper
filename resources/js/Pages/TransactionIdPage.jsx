@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import { LayoutAdmin } from "../Components";
 import { apiTransaksiDetail } from "../Api";
-import { stringFirstCapital } from "../Helpers/helper";
+import { rupiah, stringFirstCapital } from "../Helpers/helper";
 
 const TransactionIdPage = ({ id }) => {
     const [transaksi, setTransaksi] = useState(null);
@@ -104,7 +104,7 @@ const TransactionIdPage = ({ id }) => {
                                     <p>
                                         Harga:{" "}
                                         <span className="font-bold">
-                                            Rp. {item?.price}
+                                            {rupiah(item?.price ?? 0)}
                                         </span>
                                     </p>
                                     <p>

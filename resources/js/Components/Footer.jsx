@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 export default function Footer() {
     return (
-        <AFooter container={true} className="border-t">
+        <AFooter container={true} className="border-t mt-8">
             <AFooter.Copyright
                 href="#"
                 by="Exam Web Programming"

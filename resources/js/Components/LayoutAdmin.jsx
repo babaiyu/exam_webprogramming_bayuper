@@ -25,6 +25,7 @@ export default function LayoutAdmin({
             await apiGetUser()
                 .then((res) => {
                     const response = res.data;
+                    localStorage.setItem('USER', JSON.stringify(response));
                     setUser(response);
                 })
                 .catch((err) => {
