@@ -49,7 +49,7 @@ const DashboardPage = () => {
         <>
             <h1 className="text-4xl mt-4 mb-4">Dashboard</h1>
 
-            <section className="flex flex-wrap justify-between mb-4">
+            <section className="flex flex-wrap justify-between mb-4 h-screen">
                 {MENU_DASHBOARD.map((item) => (
                     <div
                         key={item?.id}

@@ -142,70 +142,6 @@ const ReportPage = () => {
                     <Spinner size="xl" />
                 ) : (
                     <>
-                        {/* Data Table */}
-                        <aside className="mb-8">
-                            <h2 className="text-xl font-semibold">
-                                Data Laporan
-                            </h2>
-
-                            <Table
-                                hoverable={true}
-                                className="mt-2 overflow-x-auto relative"
-                            >
-                                <Table.Head>
-                                    <Table.HeadCell>No. Trans</Table.HeadCell>
-                                    <Table.HeadCell>Tanggal</Table.HeadCell>
-                                    <Table.HeadCell>
-                                        Customer / Vendor
-                                    </Table.HeadCell>
-                                    <Table.HeadCell>Tipe Trans</Table.HeadCell>
-                                    <Table.HeadCell>Harga</Table.HeadCell>
-                                    <Table.HeadCell>
-                                        <span className="sr-only">Info</span>
-                                    </Table.HeadCell>
-                                </Table.Head>
-                                <Table.Body className="divide-y">
-                                    {(data?.reports ?? []).map((item) => (
-                                        <Table.Row
-                                            key={item?.id}
-                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                                        >
-                                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                                {item?.no_trans}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {dayjs(item?.tanggal).format(
-                                                    "YYYY-MM-DD"
-                                                )}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.customer_vendor}
-                                            </Table.Cell>
-                                            <Table.Cell className="flex">
-                                                <span className="mr-2">
-                                                    {stringFirstCapital(
-                                                        item?.tipe_trans
-                                                    )}
-                                                </span>
-                                                {item?.tipe_trans ===
-                                                "pembelian" ? (
-                                                    <ArrowTrendingDownIcon className="w-6 h-6 text-red-700" />
-                                                ) : null}
-                                                {item?.tipe_trans ===
-                                                "penjualan" ? (
-                                                    <ArrowTrendingUpIcon className="w-6 h-6 text-green-700" />
-                                                ) : null}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {rupiah(item?.price ?? 0)}
-                                            </Table.Cell>
-                                            <Table.Cell></Table.Cell>
-                                        </Table.Row>
-                                    ))}
-                                </Table.Body>
-                            </Table>
-                        </aside>
-
                         {/* Data Chart */}
                         <aside className="mb-8 md:flex">
                             <div className="md:w-1/2">
@@ -290,6 +226,70 @@ const ReportPage = () => {
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
+                        </aside>
+
+                        {/* Data Table */}
+                        <aside className="mb-8">
+                            <h2 className="text-xl font-semibold">
+                                Data Laporan
+                            </h2>
+
+                            <Table
+                                hoverable={true}
+                                className="mt-2 overflow-x-auto relative"
+                            >
+                                <Table.Head>
+                                    <Table.HeadCell>No. Trans</Table.HeadCell>
+                                    <Table.HeadCell>Tanggal</Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Customer / Vendor
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>Tipe Trans</Table.HeadCell>
+                                    <Table.HeadCell>Harga</Table.HeadCell>
+                                    <Table.HeadCell>
+                                        <span className="sr-only">Info</span>
+                                    </Table.HeadCell>
+                                </Table.Head>
+                                <Table.Body className="divide-y">
+                                    {(data?.reports ?? []).map((item) => (
+                                        <Table.Row
+                                            key={item?.id}
+                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                        >
+                                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                {item?.no_trans}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {dayjs(item?.tanggal).format(
+                                                    "YYYY-MM-DD"
+                                                )}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item?.customer_vendor}
+                                            </Table.Cell>
+                                            <Table.Cell className="flex">
+                                                <span className="mr-2">
+                                                    {stringFirstCapital(
+                                                        item?.tipe_trans
+                                                    )}
+                                                </span>
+                                                {item?.tipe_trans ===
+                                                "pembelian" ? (
+                                                    <ArrowTrendingDownIcon className="w-6 h-6 text-red-700" />
+                                                ) : null}
+                                                {item?.tipe_trans ===
+                                                "penjualan" ? (
+                                                    <ArrowTrendingUpIcon className="w-6 h-6 text-green-700" />
+                                                ) : null}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {rupiah(item?.price ?? 0)}
+                                            </Table.Cell>
+                                            <Table.Cell></Table.Cell>
+                                        </Table.Row>
+                                    ))}
+                                </Table.Body>
+                            </Table>
                         </aside>
                     </>
                 )}
